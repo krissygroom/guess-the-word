@@ -27,6 +27,9 @@ const playAgainButton = document.querySelector(".play-again");
 const word = "magnolia";
 console.log(word.length);
 
+// Array to hold guessed letters
+const guessedLetters = [];
+
 // Function to add circle placeholders for each letter of word 
 const createPlaceholders = function(word) {
     let circles = "";
@@ -36,13 +39,49 @@ const createPlaceholders = function(word) {
     wordInProgress.innerText = circles;
 };
 
+createPlaceholders(word);
+
 // Capture the user's letter input when clicking guess button
 guessButton.addEventListener("click", function(e) {
     e.preventDefault();
     const inputValue = letterInput.value;
-    console.log(inputValue);
     letterInput.value = "";
-})
+    message.innerText = "";
+    const validInput = checkInput(inputValue);
+    if (typeof validInput !== "undefined") {
+        makeGuess(validInput);
+    }
+});
 
 
-createPlaceholders(word);
+// Function to validate user's input
+const checkInput = function(input) {
+    // check if value is only a character
+    const acceptedLetter = /[a-zA-Z]/
+    if (input === "") {
+        message.innerText = "Enter one ☝️ letter for a guess!";
+    } else if (input.length > 1) {
+        message.innerText = `Only enter one letter, silly 😜`;
+    } else if (!input.match(acceptedLetter)) {
+        message.innerText = "Only letters please ✅ (no nums allowed)";
+    } else {
+        return input;
+    };
+};
+
+
+// Function to append input to guessedLetters array
+// if it has not been guessed yet
+const makeGuess = function(letter) {
+    letter = letter.toUpperCase();
+    if (guessedLetters.includes(letter)) {
+        message.innerText = `You already guessed '${letter}', try again!`;
+    } else {
+        message.innerText = `Your guess is: '${letter}'`;
+        guessedLetters.push(letter);
+    };
+    console.log(guessedLetters);
+}
+
+
+
