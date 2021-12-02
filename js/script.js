@@ -26,6 +26,9 @@ const playAgainButton = document.querySelector(".play-again");
 // Section with form to input and guess letters
 const letterSection = document.querySelector(".letter-section");
 
+// Hidden button that will appear at the end of the game
+const endGame = document.querySelector(".end-game");
+
 
 // *** GLOBAL VARIABLES ***
 
@@ -35,7 +38,7 @@ let word = "magnolia";
 // Array to hold guessed letters
 let guessedLetters = [];
 
-let remainingGuesses = 8;
+let remainingGuesses = 2;
 
 numGuesses.innerText = remainingGuesses;
 
@@ -185,11 +188,18 @@ const playerWon = function() {
 
 
 // Start over
-const startOver = function() {
+const startOver = function() {   
+    clearScreen();
+    playAgainButton.classList.remove("hide");
+    endGame.classList.remove("hide");
+};
+
+
+// Clear screen
+const clearScreen = function() {
     lettersList.classList.add("hide");
     letterSection.classList.add("hide");
     remaining.classList.add("hide");
-    playAgainButton.classList.remove("hide");
 };
 
 
@@ -198,7 +208,7 @@ playAgainButton.addEventListener("click", function(e) {
     message.classList.remove("win");
     message.innerText = "";
     lettersList.innerHTML = "";
-    remainingGuesses = 8;
+    remainingGuesses = 2;
     numGuesses.innerText = remainingGuesses;
     remaining.innerHTML = `<p class="remaining">You have <span class="num-guesses">${remainingGuesses}</span> guesses remaining.</p>`;
     guessedLetters = [];
@@ -207,4 +217,13 @@ playAgainButton.addEventListener("click", function(e) {
     remaining.classList.remove("hide");
     playAgainButton.classList.add("hide");
     getWord();
+});
+
+
+endGame.addEventListener("click", function() {
+    clearScreen();
+    playAgainButton.classList.add("hide");
+    endGame.classList.add("hide");
+    wordInProgress.innerHTML = '';
+    message.innerText = "Thanks for Playing! 👋";   
 });
