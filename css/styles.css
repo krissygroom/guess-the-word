@@ -123,6 +123,12 @@ input:focus {
   cursor: pointer;
 }
 
+.end-game {
+  background: #fff;
+  color: #28bdbd;
+  /* box-shadow: inset 0 0 0 3px #28bdbd; */
+}
+
 .guess:active,
 .play-again:active,
 .guess:focus,
@@ -136,6 +142,12 @@ input:focus {
   transform: scale(0.98);
   background: brightness(0.3);
   color: white;
+}
+
+.end-game:active,
+.end-game:focus,
+.end-game:hover {
+  color: #28bdbd;
 }
 
 /* animatied background */
