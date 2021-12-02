@@ -1,5 +1,5 @@
 // SELECT ELEMENTS:
-// Unordered list where players guessed letters will appear
+// Unordered list where player's guessed letters will appear
 const lettersList = document.querySelector(".guessed-letters");
 
 // Button with text 'Guess!' in it
@@ -8,7 +8,7 @@ const guessButton = document.querySelector(".guess");
 // Text input where player enters letter
 const letterInput = document.querySelector(".letter");
 
-// Empty paragraph where word in progress appears
+// Empty paragraph where 'word in progress' appears
 const wordInProgress = document.querySelector(".word-in-progress");
 
 // Paragraph where number of remaining guesses appears
@@ -43,6 +43,7 @@ createPlaceholders(word);
 
 // Capture the user's letter input when clicking guess button
 guessButton.addEventListener("click", function(e) {
+    // prevents page from reloading with each click
     e.preventDefault();
     const inputValue = letterInput.value;
     letterInput.value = "";
@@ -59,9 +60,9 @@ const checkInput = function(input) {
     // check if value is only a character
     const acceptedLetter = /[a-zA-Z]/
     if (input === "") {
-        message.innerText = "Enter one ☝️ letter for a guess!";
+        message.innerText = "Enter ☝️ one letter for a guess!";
     } else if (input.length > 1) {
-        message.innerText = `Only enter one letter, silly 😜`;
+        message.innerText = `Only enter one value, silly 😜`;
     } else if (!input.match(acceptedLetter)) {
         message.innerText = "Only letters please ✅ (no nums allowed)";
     } else {
@@ -79,9 +80,18 @@ const makeGuess = function(letter) {
     } else {
         message.innerText = `Your guess is: '${letter}'`;
         guessedLetters.push(letter);
+        displayLetters();
     };
     console.log(guessedLetters);
 }
 
 
-
+// Function to display letters guessed to screen
+const displayLetters = function() {
+    lettersList.innerHTML = "";
+    for (let letter of guessedLetters) {
+        let listItem = document.createElement("li");
+        listItem.innerText = letter;
+        lettersList.append(listItem);
+    };
+};
