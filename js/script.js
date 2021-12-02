@@ -115,4 +115,14 @@ const updateWord = function(guessedLetters) {
         };
     });
     wordInProgress.innerText = wordProg.join("");
+    playerWon();
+};
+
+
+// Check if player won the game
+const playerWon = function() {
+    if (wordInProgress.innerText === word.toUpperCase()) {
+        message.classList.add("win");
+        message.innerHTML = '<p class="highlight">You guessed correct the word! Congrats!</p>';
+    };
 };
