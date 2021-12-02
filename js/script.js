@@ -31,10 +31,9 @@ const letterSection = document.querySelector(".letter-section");
 
 // Starting word:
 let word = "magnolia";
-// console.log(word.length);
 
 // Array to hold guessed letters
-const guessedLetters = [];
+let guessedLetters = [];
 
 let remainingGuesses = 8;
 
@@ -201,7 +200,8 @@ playAgainButton.addEventListener("click", function(e) {
     lettersList.innerHTML = "";
     remainingGuesses = 8;
     numGuesses.innerText = remainingGuesses;
-    remaining.innerHTML = `<p class="remaining">You have <span class="num-guesses">${remainingGuesses}</span> guesses remaining.</p>`
+    remaining.innerHTML = `<p class="remaining">You have <span class="num-guesses">${remainingGuesses}</span> guesses remaining.</p>`;
+    guessedLetters = [];
     lettersList.classList.remove("hide");
     letterSection.classList.remove("hide");
     remaining.classList.remove("hide");
