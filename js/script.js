@@ -216,6 +216,7 @@ playAgainButton.addEventListener("click", function(e) {
     letterSection.classList.remove("hide");
     remaining.classList.remove("hide");
     playAgainButton.classList.add("hide");
+    endGame.classList.add("hide");
     getWord();
 });
 
