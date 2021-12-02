@@ -167,7 +167,7 @@ const updateRemainingGuesses = function(guess) {
     if (numGuesses.innerText == 0) {
         remaining.innerText = "No more guesses remaining!";
         message.innerText = "Game Over ☹️";
-        letterSection.classList.add("hide");
+        startOver();
 
     };
 
@@ -180,5 +180,31 @@ const playerWon = function() {
         message.classList.add("win");
         remaining.innerText = "";
         message.innerHTML = '<p class="highlight">You guessed the word! Congrats!</p>';
+        startOver();
     };
 };
+
+
+// Start over
+const startOver = function() {
+    lettersList.classList.add("hide");
+    letterSection.classList.add("hide");
+    remaining.classList.add("hide");
+    playAgainButton.classList.remove("hide");
+};
+
+
+// Activate play again button
+playAgainButton.addEventListener("click", function(e) {
+    message.classList.remove("win");
+    message.innerText = "";
+    lettersList.innerHTML = "";
+    remainingGuesses = 8;
+    numGuesses.innerText = remainingGuesses;
+    remaining.innerHTML = `<p class="remaining">You have <span class="num-guesses">${remainingGuesses}</span> guesses remaining.</p>`
+    lettersList.classList.remove("hide");
+    letterSection.classList.remove("hide");
+    remaining.classList.remove("hide");
+    playAgainButton.classList.add("hide");
+    getWord();
+});
