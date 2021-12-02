@@ -23,6 +23,8 @@ const message = document.querySelector(".message");
 // Hidden button that will appear to prompt player to play again
 const playAgainButton = document.querySelector(".play-again");
 
+
+
 // Starting word:
 const word = "magnolia";
 console.log(word.length);
@@ -30,7 +32,8 @@ console.log(word.length);
 // Array to hold guessed letters
 const guessedLetters = [];
 
-// Function to add circle placeholders for each letter of word 
+
+// Add circle placeholders for each letter of word 
 const createPlaceholders = function(word) {
     let circles = "";
     for (let letter of word) {
@@ -40,6 +43,7 @@ const createPlaceholders = function(word) {
 };
 
 createPlaceholders(word);
+
 
 // Capture the user's letter input when clicking guess button
 guessButton.addEventListener("click", function(e) {
@@ -55,7 +59,7 @@ guessButton.addEventListener("click", function(e) {
 });
 
 
-// Function to validate user's input
+// Validate user's input
 const checkInput = function(input) {
     // check if value is only a character
     const acceptedLetter = /[a-zA-Z]/
@@ -71,7 +75,7 @@ const checkInput = function(input) {
 };
 
 
-// Function to append input to guessedLetters array
+// Append input to guessedLetters array
 // if it has not been guessed yet
 const makeGuess = function(letter) {
     letter = letter.toUpperCase();
@@ -81,12 +85,13 @@ const makeGuess = function(letter) {
         message.innerText = `Your guess is: '${letter}'`;
         guessedLetters.push(letter);
         displayLetters();
+        updateWord(guessedLetters);
     };
     console.log(guessedLetters);
 }
 
 
-// Function to display letters guessed to screen
+// Display letters guessed to screen
 const displayLetters = function() {
     lettersList.innerHTML = "";
     for (let letter of guessedLetters) {
@@ -94,4 +99,20 @@ const displayLetters = function() {
         listItem.innerText = letter;
         lettersList.append(listItem);
     };
+};
+
+
+// Update word in progress - replace dots with letters
+// TODO - change the arrays:
+const updateWord = function(guessedLetters) {
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    // Check if any of the letters in wordArray are in the word
+    const wordProg = wordInProgress.innerText.split("");
+    wordArray.forEach(function(letter, index) {
+        if (guessedLetters.includes(letter)) {
+            wordProg[index] = letter;
+        };
+    });
+    wordInProgress.innerText = wordProg.join("");
 };
