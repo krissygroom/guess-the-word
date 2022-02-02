@@ -11,11 +11,17 @@ const letterInput = document.querySelector(".letter");
 // Empty paragraph where 'word in progress' appears
 const wordInProgress = document.querySelector(".word-in-progress");
 
+// Welcome msg at start of game
+const welcome = document.querySelector(".welcome-msg");
+
 // Paragraph where number of remaining guesses appears
 const remaining = document.querySelector(".remaining");
 
-// Span in above paragraph
+// Number of guesses span in above paragraph
 const numGuesses = document.querySelector(".num-guesses");
+
+// End of the welcome sentence
+const endSentence = document.querySelector(".end-sentence");
 
 // Empty paragraph where messages will appear when player guesses
 const message = document.querySelector(".message");
@@ -46,7 +52,7 @@ const numberOfGuesses = 8
 let remainingGuesses = numberOfGuesses;
 
 // Initialize number of guesses message
-numGuesses.innerText = `${remainingGuesses} guesses`; 
+numGuesses.innerText = `${remainingGuesses} tries`; 
 
 
 // *** FUNCTIONS ***
@@ -62,7 +68,6 @@ const getWord = async function () {
     // select a random word
     const randomIndex = Math.floor(Math.random() * wordArray.length);
     const randomWord = wordArray[randomIndex].trim();
-    console.log(randomWord);
     word = randomWord;
     createPlaceholders(word);
 };
@@ -90,6 +95,8 @@ guessButton.addEventListener("click", function(e) {
     message.innerText = "";
     const validInput = checkInput(inputValue);
     if (typeof validInput !== "undefined") {
+        welcome.style.display="none";
+        endSentence.innerText="left";
         makeGuess(validInput);
     };
 });
@@ -210,7 +217,8 @@ playAgainButton.addEventListener("click", function(e) {
     guessedLetters = [];
 
     remainingGuesses = numberOfGuesses;
-    numGuesses.innerText = `${remainingGuesses} guesses`;  
+    numGuesses.innerText = `${remainingGuesses} guesses`; 
+    endSentence.innerText=""; 
 
     lettersList.classList.remove("hide");
     letterSection.classList.remove("hide");
